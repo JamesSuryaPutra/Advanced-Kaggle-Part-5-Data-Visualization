@@ -1,0 +1,238 @@
+<Scenario>
+You've recently decided to create your very own video game! As an avid reader of IGN Game Reviews, you hear about all of the most recent game releases, along with the ranking they've receiv
+ed from experts, ranging from 0 (Disaster) to 10 (Masterpiece).
+
+You're interested in using IGN reviews to guide the design of your upcoming game. Thankfully, someone has summarized the rankings in a really useful CSV file that you can use to guide your
+analysis.
+
+<Setup>
+Run the next cell to import and configure the Python libraries that you need to complete the exercise.
+
+****************
+import pandas as pd
+pd.plotting.register_matplotlib_converters()
+import matplotlib.pyplot as plt
+%matplotlib inline
+import seaborn as sns
+print("Setup Complete")
+
+Setup Complete
+****************
+
+The questions below will give you feedback on your work. Run the following cell to set up our feedback system.
+
+****************
+# Set up code checking
+import os
+if not os.path.exists("../input/ign_scores.csv"):
+    os.symlink("../input/data-for-datavis/ign_scores.csv", "../input/ign_scores.csv") 
+from learntools.core import binder
+binder.bind(globals())
+from learntools.data_viz_to_coder.ex3 import *
+print("Setup Complete")
+
+Setup Complete
+****************
+
+<1st step: Load the data>
+Read the IGN data file into ign_data. Use the "Platform" column to label the rows.
+
+****************
+# Path of the file to read
+ign_filepath = "../input/ign_scores.csv"
+
+# Fill in the line below to read the file into a variable ign_data
+ign_data = pd.read_csv(ign_filepath, index_col="Platform")
+
+# Run the line below with no changes to check that you've loaded the data correctly
+step_1.check()
+
+Correct
+
+# Lines below will give you a hint or solution code
+step_1.hint()
+step_1.solution()
+
+Hint:
+Use pd.read_csv, and follow it with two pieces of text that are enclosed in parentheses and separated by commas.
+(1) The filepath for the dataset is provided in ign_filepath.
+(2) Use the "Platform" column to label the rows.
+
+Solution:
+ign_data = pd.read_csv(ign_filepath, index_col="Platform")
+****************
+
+<2nd step: Review the data>
+Use a Python command to print the entire dataset.
+
+****************
+# Print the data
+ign_data
+
+Action	Action, Adventure	Adventure	Fighting	Platformer	Puzzle	RPG	Racing	Shooter	Simulation	Sports	Strategy
+Platform												
+Dreamcast	6.882857	7.511111	6.281818	8.200000	8.340000	8.088889	7.700000	7.042500	7.616667	7.628571	7.272222	6.433333
+Game Boy Advance	6.373077	7.507692	6.057143	6.226316	6.970588	6.532143	7.542857	6.657143	6.444444	6.928571	6.694444	7.175000
+Game Boy Color	6.272727	8.166667	5.307692	4.500000	6.352941	6.583333	7.285714	5.897436	4.500000	5.900000	5.790698	7.400000
+GameCube	6.532584	7.608333	6.753846	7.422222	6.665714	6.133333	7.890909	6.852632	6.981818	8.028571	7.481319	7.116667
+Nintendo 3DS	6.670833	7.481818	7.414286	6.614286	7.503448	8.000000	7.719231	6.900000	7.033333	7.700000	6.388889	7.900000
+Nintendo 64	6.649057	8.250000	7.000000	5.681250	6.889655	7.461538	6.050000	6.939623	8.042857	5.675000	6.967857	6.900000
+Nintendo DS	5.903608	7.240000	6.259804	6.320000	6.840000	6.604615	7.222619	6.038636	6.965217	5.874359	5.936667	6.644737
+Nintendo DSi	6.827027	8.500000	6.090909	7.500000	7.250000	6.810526	7.166667	6.563636	6.500000	5.195652	5.644444	6.566667
+PC	6.805791	7.334746	7.136798	7.166667	7.410938	6.924706	7.759930	7.032418	7.084878	7.104889	6.902424	7.310207
+PlayStation	6.016406	7.933333	6.313725	6.553731	6.579070	6.757895	7.910000	6.773387	6.424000	6.918182	6.751220	6.496875
+PlayStation 2	6.467361	7.250000	6.315152	7.306349	7.068421	6.354545	7.473077	6.585065	6.641667	7.152632	7.197826	7.238889
+PlayStation 3	6.853819	7.306154	6.820988	7.710938	7.735714	7.350000	7.436111	6.978571	7.219553	7.142857	7.485816	7.355172
+PlayStation 4	7.550000	7.835294	7.388571	7.280000	8.390909	7.400000	7.944000	7.590000	7.804444	9.250000	7.430000	6.566667
+PlayStation Portable	6.467797	7.000000	6.938095	6.822222	7.194737	6.726667	6.817778	6.401961	7.071053	6.761538	6.956790	6.550000
+PlayStation Vita	7.173077	6.133333	8.057143	7.527273	8.568750	8.250000	7.337500	6.300000	7.660000	5.725000	7.130000	8.900000
+Wii	6.262718	7.294643	6.234043	6.733333	7.054255	6.426984	7.410345	5.011667	6.479798	6.327027	5.966901	6.975000
+Wireless	7.041699	7.312500	6.972414	6.740000	7.509091	7.360550	8.260000	6.898305	6.906780	7.802857	7.417699	7.542857
+Xbox	6.819512	7.479032	6.821429	7.029630	7.303448	5.125000	8.277778	7.021591	7.485417	7.155556	7.884397	7.313333
+Xbox 360	6.719048	7.137838	6.857353	7.552239	7.559574	7.141026	7.650000	6.996154	7.338153	7.325000	7.317857	7.112245
+Xbox One	7.702857	7.566667	7.254545	7.171429	6.733333	8.100000	8.291667	8.163636	8.020000	7.733333	7.331818	8.500000
+iPhone	6.865445	7.764286	7.745833	6.087500	7.471930	7.810784	7.185185	7.315789	6.995588	7.328571	7.152174	7.534921
+****************
+
+The dataset that you've just printed shows the average score, by platform and genre. Use the data to answer the questions below.
+
+****************
+# Fill in the line below: What is the highest average score received by PC games,
+# for any genre?
+high_score = 7.759930
+
+# Fill in the line below: On the Playstation Vita platform, which genre has the 
+# lowest average score? Please provide the name of the column, and put your answer 
+# in single quotes (e.g., 'Action', 'Adventure', 'Fighting', etc.)
+worst_genre = 'Simulation'
+
+# Check your answers
+step_2.check()
+
+Correct
+
+# Lines below will give you a hint or solution code
+step_2.hint()
+step_2.solution()
+
+Hint:
+Use ign_data to print the entire dataset. After printing the dataset, each row corresponds to a different platform, and each genre has its own column. The entries contain the average
+score for each combination of genre and platform.
+
+Solution:
+# Print the data
+ign_data
+# What is the highest average score received by PC games, for any genre?
+high_score = 7.759930
+# On the Playstation Vita platform, which genre has the 
+# lowest average score? Please provide the name of the column, and put your answer 
+# in single quotes (e.g., 'Action', 'Adventure', 'Fighting', etc.)
+worst_genre = 'Simulation'
+****************
+
+<3rd step: Which platform is the best?>
+Since you can remember, your favorite video game has been Mario Kart Wii, a racing game released for the Wii platform in 2008. And, IGN agrees with you that it is a great game; their
+rating for this game is a whopping 8.9! Inspired by the success of this game, you're considering creating your very own racing game for the Wii platform.
+
+Part A:
+Create a bar chart that shows the average score for racing games, for each platform. Your chart should have one bar for each platform.
+
+****************
+# Bar chart showing average score for racing games by platform
+plt.figure(figsize=(8, 6))
+plt.title("Average Score for Racing Games by Platform")
+plt.xlabel("")
+sns.barplot(x=ign_data['Racing'], y=ign_data.index)
+
+# Check your answer
+step_3.a.check()
+
+Correct
+
+# Lines below will give you a hint or solution code
+step_3.a.hint()
+step_3.a.solution_plot()
+
+Hint:
+Use sns.barplot and the 'Racing' column of ign_data.
+
+Solution:
+# Set the width and height of the figure
+plt.figure(figsize=(8, 6))
+# Bar chart showing average score for racing games by platform
+sns.barplot(x=ign_data['Racing'], y=ign_data.index)
+# Add label for horizontal axis
+plt.xlabel("")
+# Add label for vertical axis
+plt.title("Average Score for Racing Games, by Platform")
+****************
+
+Part B:
+Based on the bar chart, do you expect a racing game for the Wii platform to receive a high rating? If not, what gaming platform seems to be the best alternative?
+
+****************
+step_3.b.hint()
+
+Hint:
+Check the length of the bar corresponding to the Wii platform. Does it appear to be longer than the other bars? If so, you should expect a Wii game to perform well!
+
+# Check your answer (Run this code cell to receive credit!)
+step_3.b.solution()
+
+Solution:
+Based on the data, we should not expect a racing game for the Wii platform to receive a high rating. In fact, on average, racing games for Wii score lower than any other platform. Xbox
+One seems to be the best alternative, since it has the highest average ratings.
+****************
+
+<4th step: All possible combinations!>
+Eventually, you decide against creating a racing game for Wii, but you're still committed to creating your own video game! Since your gaming interests are pretty broad (... you general
+ly love most video games), you decide to use the IGN data to inform your new choice of genre and platform.
+
+Part A:
+Use the data to create a heatmap of average score by genre and platform.
+
+****************
+# Heatmap showing average game score by platform and genre
+plt.figure(figsize=(10, 10))
+plt.title("Average Game Score by Genre and Platform")
+plt.xlabel("")
+sns.heatmap(data=ign_data, annot=True)
+
+# Check your answer
+step_4.a.check()
+
+Correct
+
+# Lines below will give you a hint or solution code
+step_4.a.hint()
+step_4.a.solution_plot()
+
+Hint:
+Use sns.heatmap.
+
+Solution:
+# Set the width and height of the figure
+plt.figure(figsize=(10,10))
+# Heatmap showing average game score by platform and genre
+sns.heatmap(ign_data, annot=True)
+# Add label for horizontal axis
+plt.xlabel("Genre")
+# Add label for vertical axis
+plt.title("Average Game Score, by Platform and Genre")
+****************
+
+Part B:
+Which combination of genre and platform receives the highest average ratings? Which combination receives the lowest average rankings?
+
+****************
+step_4.b.hint()
+
+Hint:
+To find the highest average ratings, look for the largest numbers (or lightest boxes) in the heatmap. To find the lowest average ratings, find the smallest numbers (or darkest boxes).
+
+# Check your answer (Run this code cell to receive credit!)
+step_4.b.solution()
+
+Solution:
+Simulation games for Playstation 4 receive the highest average ratings (9.2). Shooting and Fighting games for Game Boy Color receive the lowest average rankings (4.5).
+****************
