@@ -1,0 +1,107 @@
+<Setup>
+Run the next cell to import and configure the Python libraries that you need to complete the exercise.
+
+****************
+import pandas as pd
+pd.plotting.register_matplotlib_converters()
+import matplotlib.pyplot as plt
+%matplotlib inline
+import seaborn as sns
+print("Setup Complete")
+
+Setup Complete
+****************
+
+The questions below will give you feedback on your work. Run the following cell to set up the feedback system.
+
+****************
+# Set up code checking
+from learntools.core import binder
+binder.bind(globals())
+from learntools.data_viz_to_coder.ex7 import *
+print("Setup Complete")
+
+Setup Complete
+****************
+
+<1st step: Attach a dataset to the notebook>
+Begin by selecting a CSV dataset from Kaggle Datasets. If you're unsure how to do this, please revisit the instructions in the previous tutorial. Once you have selected a dataset, click
+on the [+ Add data] option in the top right corner. This will generate a pop-up window that you can use to search for your chosen dataset.
+
+Once you have found the dataset, click on the [Add] button to attach it to the notebook. You can check that it was successful by looking at the Data dropdown menu to the right of the not
+ebook; look for an input folder containing a subfolder that matches the name of the dataset. You can click on the carat to the left of the name of the dataset to double-check that it con
+tains a CSV file. For instance, the image below shows that the example dataset contains two CSV files:
+(1) dc-wikia-data.csv
+(2) marvel-wikia-data.csv
+
+Once you've uploaded a dataset with a CSV file, run the code cell below without changes to receive credit for your work!
+
+****************
+# Check for a dataset with a CSV file
+step_1.check()
+
+Correct
+****************
+
+<2nd step: Specify the filepath>
+Now that the dataset is attached to the notebook, you can find its filepath. To do this, begin by clicking on the CSV file you'd like to use. This will open the CSV file in a tab below
+the notebook. You can find the filepath towards the top of this new tab.
+
+After you find the filepath corresponding to your dataset, fill it in as the value for my_filepath in the code cell below, and run the code cell to check that you've provided a valid fil
+epath. For instance, in the case of this example dataset, we would set:
+my_filepath = "../input/fivethirtyeight-comic-characters-dataset/dc-wikia-data.csv"
+
+Note that you must enclose the filepath in quotation marks; otherwise, the code will return an error. Once you've entered the filepath, you can close the tab below the notebook by click
+ing on the [X] at the top of the tab.
+
+****************
+# Fill in the line below: Specify the path of the CSV file to read
+my_filepath = "../input/fivethirtyeight-comic-characters-dataset/dc-wikia-data.csv"
+
+# Check for a valid filepath to a CSV file in a dataset
+step_2.check()
+
+Correct
+****************
+
+<3rd step: Load the data>
+Use the next code cell to load your data file into my_data. Use the filepath that you specified in the previous step.
+
+****************
+# Fill in the line below: Read the file into a variable my_data
+my_data = pd.read_csv(my_filepath)
+
+# Check that a dataset has been uploaded into my_data
+step_3.check()
+
+Correct
+****************
+
+After the code cell above is marked correct, run the code cell below without changes to view the first five rows of the data.
+
+****************
+# Print the first five rows of the data
+my_data.head()
+
+page_id	name	urlslug	ID	ALIGN	EYE	HAIR	SEX	GSM	ALIVE	APPEARANCES	FIRST APPEARANCE	YEAR
+0	1422	Batman (Bruce Wayne)	\/wiki\/Batman_(Bruce_Wayne)	Secret Identity	Good Characters	Blue Eyes	Black Hair	Male Characters	NaN	Living Characters	3093.0	1939, May	1939.0
+1	23387	Superman (Clark Kent)	\/wiki\/Superman_(Clark_Kent)	Secret Identity	Good Characters	Blue Eyes	Black Hair	Male Characters	NaN	Living Characters	2496.0	1986, October	1986.0
+2	1458	Green Lantern (Hal Jordan)	\/wiki\/Green_Lantern_(Hal_Jordan)	Secret Identity	Good Characters	Brown Eyes	Brown Hair	Male Characters	NaN	Living Characters	1565.0	1959, October	1959.0
+3	1659	James Gordon (New Earth)	\/wiki\/James_Gordon_(New_Earth)	Public Identity	Good Characters	Brown Eyes	White Hair	Male Characters	NaN	Living Characters	1316.0	1987, February	1987.0
+4	1576	Richard Grayson (New Earth)	\/wiki\/Richard_Grayson_(New_Earth)	Secret Identity	Good Characters	Blue Eyes	Black Hair	Male Characters	NaN	Living Characters	1237.0	1940, April	1940.0
+****************
+
+<4th step: Visualize the data>
+Use the next code cell to create a figure that tells a story behind your dataset. You can use any chart type (line chart, bar chart, heatmap, etc.) of your choosing!
+
+****************
+# Create a plot
+plt.figure(figsize=(12, 6))
+plt.title("FiveThirtyEight Comic Characters Biography")
+sns.barplot(x=my_data.index, y=my_data['APPEARANCES'])
+
+# Check that a figure appears below
+step_4.check()
+
+Correct
+****************
